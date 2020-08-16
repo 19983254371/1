@@ -3,6 +3,7 @@ package com.hqyj.cyj.moudls.test.service.Impl;
 import com.hqyj.cyj.moudls.test.dao.CountryDao;
 import com.hqyj.cyj.moudls.test.entity.Country;
 import com.hqyj.cyj.moudls.test.service.CountryService;
+import com.hqyj.cyj.utils.RedisUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -15,7 +16,7 @@ public class CountryServiceImpl implements CountryService {
     CountryDao countryDao;
 
     @Autowired
-    RedisTemplate redisTemplate;
+    RedisUtils redisUtils;
 
     @Override
     public Country getCountryByCountryId(int countryId) {
@@ -32,8 +33,9 @@ public class CountryServiceImpl implements CountryService {
         Country country=countryDao.getCountryByCountryId(countryId);
 
         String countryKey = String.format("country%d",countryId);
-        redisTemplate.opsForValue().set(countryKey,country);
+        redisUtils.set(countryKey,country);
 
-        return (Country) redisTemplate.opsForValue().get(countryKey);
+
+        return (Country) redisUtils.get(countryKey);
     }
 }

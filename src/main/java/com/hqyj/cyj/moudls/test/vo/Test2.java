@@ -9,6 +9,9 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties(prefix ="com")
 @PropertySource("classpath:config/applicationTest.properties")
 public class Test2 {
+    @Value("${port}")
+    private char[] port;
+
     @Value("${com.name}")
     private String name;
 
@@ -41,5 +44,13 @@ public class Test2 {
 
     public void setMore(String more) {
         this.more = more;
+    }
+
+    public char[] getPort() {
+        return port;
+    }
+
+    public void setPort(char[] port) {
+        this.port = port;
     }
 }
