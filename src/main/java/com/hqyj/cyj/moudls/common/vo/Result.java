@@ -9,6 +9,12 @@ public class Result<T>{
     private  String message;
     private T object;
 
+    public Result(int status, String message, T object) {
+        this.status = status;
+        this.message = message;
+        this.object = object;
+    }
+
     public Result() {
     }
 
