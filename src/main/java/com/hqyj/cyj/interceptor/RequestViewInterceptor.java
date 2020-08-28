@@ -10,14 +10,20 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * @Description RequestViewInterceptor
+ * @Author HymanHu
+ * @Date 2020/8/17 10:28
+ */
 @Component
 public class RequestViewInterceptor implements HandlerInterceptor {
-    private final static Logger LOGGER =LoggerFactory.getLogger(RequestViewInterceptor.class);
+
+    private final static Logger LOGGER = LoggerFactory.getLogger(RequestViewInterceptor.class);
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        LOGGER.debug("====pre interceptor====");
-        return HandlerInterceptor.super.preHandle(request,response,handler);
+        LOGGER.debug("==== Pre interceptor ====");
+        return HandlerInterceptor.super.preHandle(request, response, handler);
     }
 
     @Override
@@ -27,28 +33,26 @@ public class RequestViewInterceptor implements HandlerInterceptor {
                            ModelAndView modelAndView) throws Exception {
         LOGGER.debug("==== Post interceptor ====");
 
-        if (modelAndView==null||modelAndView.getViewName().startsWith("redirect")){
+        if (modelAndView == null || modelAndView.getViewName().startsWith("redirect")) {
             return;
         }
-        //获取path路径
+
         String path = request.getServletPath();
-        String template= (String) modelAndView.getModelMap().get("template");
-        if (StringUtils.isBlank(template)){
-            if (path.startsWith("/")){
-                path= path.substring(1);
+        String template = (String) modelAndView.getModelMap().get("template");
+        if (StringUtils.isBlank(template)) {
+            if (path.startsWith("/")) {
+                path = path.substring(1);
             }
             modelAndView.getModelMap().addAttribute(
-                    "template",path.toLowerCase());
-
+                    "template", path.toLowerCase());
         }
 
-
-        HandlerInterceptor.super.preHandle(request,response,handler);
+        HandlerInterceptor.super.preHandle(request, response, handler);
     }
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
         LOGGER.debug("==== After interceptor ====");
-        HandlerInterceptor.super.preHandle(request,response,handler);
+        HandlerInterceptor.super.preHandle(request, response, handler);
     }
 }

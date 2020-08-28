@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties(prefix ="com")
 @PropertySource("classpath:config/applicationTest.properties")
 public class Test2 {
-    @Value("${port}")
+    @Value("${server.port}")
     private char[] port;
 
     @Value("${com.name}")

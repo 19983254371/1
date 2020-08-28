@@ -51,4 +51,9 @@ public class ControllerAspect {
         LOGGER.debug("===this is after controller===");
     }
 
+    public static void main(String[] args) {
+        char a = 'a';
+        Integer b = Integer.valueOf(a);
+        System.out.println(b);
+    }
 }

@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 
 
 @Controller
-@RequestMapping("/test")
+@RequestMapping("/test1")
 public class javaTestController {
 
 
